@@ -19,9 +19,10 @@ export function Draggable({ children, className, label, rotate = 0 }: { children
   const key = (e: KeyboardEvent<HTMLDivElement>) => {
     const step = e.shiftKey ? 40 : 10;
     const d: Record<string, [number, number]> = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
-    if (d[e.key]) {
+    const v = d[e.key];
+    if (v) {
       e.preventDefault();
-      setPos((p) => ({ x: p.x + d[e.key][0], y: p.y + d[e.key][1] }));
+      setPos((p) => ({ x: p.x + v[0], y: p.y + v[1] }));
     }
   };
 

@@ -131,22 +131,22 @@ function Index() {
             })}
           </ul>
           <div id="project-detail" aria-live="polite">
-            {open !== null && (
-              <article className={`sticky-note mt-8 animate-pop p-6 sm:p-8 ${PROJECTS[open].color}`}>
+            {open !== null && PROJECTS[open] && (() => { const proj = PROJECTS[open]!; return (
+              <article className={`sticky-note mt-8 animate-pop p-6 sm:p-8 ${proj.color}`}>
                 <div className="flex flex-wrap items-start justify-between gap-4">
-                  <h3 className="text-2xl font-bold">{PROJECTS[open].title}</h3>
+                  <h3 className="text-2xl font-bold">{proj.title}</h3>
                   <ul className="flex flex-wrap gap-2" aria-label="Tags">
-                    {PROJECTS[open].tags.map((t) => (
+                    {proj.tags.map((t) => (
                       <li key={t} className="rounded-full bg-card px-3 py-1 text-xs font-semibold">{t}</li>
                     ))}
                   </ul>
                 </div>
-                <p className="mt-3 max-w-2xl">{PROJECTS[open].desc}</p>
+                <p className="mt-3 max-w-2xl">{proj.desc}</p>
                 <a href="#" className="mt-4 inline-flex items-center gap-1 font-semibold underline underline-offset-4">
                   View case study <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </a>
               </article>
-            )}
+            ); })()}
           </div>
         </Section>
 
