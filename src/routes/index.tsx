@@ -58,7 +58,7 @@ function Index() {
       <a href="#main" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Skip to content
       </a>
-      <MultiCursor name={NAME.split(" ")[0]} />
+      <MultiCursor name={NAME.split(" ")[0] ?? NAME} />
 
       <header className="sticky top-0 z-40 flex items-center justify-between gap-4 px-4 py-3 sm:px-8">
         <div className="flex items-center gap-2 rounded-xl bg-card px-3 py-2 shadow-sticky">

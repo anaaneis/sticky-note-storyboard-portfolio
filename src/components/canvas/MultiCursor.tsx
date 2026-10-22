@@ -22,7 +22,7 @@ export function MultiCursor({ name }: { name: string }) {
     const click = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
       if (t.closest("a,button,input,[role=button],[data-drag]")) return;
-      const s = { id: ++id, x: e.clientX, y: e.clientY, emoji: EMOJIS[id % EMOJIS.length] };
+      const s = { id: ++id, x: e.clientX, y: e.clientY, emoji: EMOJIS[id % EMOJIS.length] ?? "✨" };
       setStamps((p) => [...p.slice(-8), s]);
       setTimeout(() => setStamps((p) => p.filter((x) => x.id !== s.id)), 1200);
     };
