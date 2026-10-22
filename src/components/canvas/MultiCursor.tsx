@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from "react";
 type Stamp = { id: number; x: number; y: number; emoji: string };
 const EMOJIS = ["✨", "💖", "👍", "🎉", "⭐", "🔥"];
 
-/** Decorative name-tag cursor that follows the pointer + reaction stamps on click.
- *  Disabled for touch and reduced-motion users; the native cursor stays visible. */
-export function MultiCursor({ name }: { name: string }) {
+/** Decorative name-tag cursor. Label: "you" by default, "click" over clickable things,
+ *  or any element's data-cursor value (e.g. "that's me"). Off for touch / reduced motion. */
+export function MultiCursor() {
   const ref = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
+  const [label, setLabel] = useState("you");
   const [stamps, setStamps] = useState<Stamp[]>([]);
 
   useEffect(() => {
@@ -18,6 +19,9 @@ export function MultiCursor({ name }: { name: string }) {
     let id = 0;
     const move = (e: PointerEvent) => {
       if (ref.current) ref.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+      const t = e.target as HTMLElement | null;
+      const custom = t?.closest<HTMLElement>("[data-cursor]")?.dataset.cursor;
+      setLabel(custom ?? (t?.closest("a,button,[role=button]") ? "click" : t?.closest("[data-drag]") ? "drag me" : "you"));
     };
     const click = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
@@ -35,14 +39,14 @@ export function MultiCursor({ name }: { name: string }) {
   }, []);
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-50">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[60]">
       {enabled && (
         <div ref={ref} className="absolute left-0 top-0 transition-transform duration-100 ease-out">
           <svg width="18" height="20" viewBox="0 0 18 20" className="text-cursor drop-shadow">
             <path d="M1 1l15 7-7 2-3 8z" fill="currentColor" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
           </svg>
           <span className="ml-4 inline-block rounded-full rounded-tl-none bg-cursor px-2.5 py-0.5 text-xs font-semibold text-cursor-foreground shadow">
-            {name}
+            {label}
           </span>
         </div>
       )}
