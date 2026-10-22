@@ -206,7 +206,7 @@ function Index() {
                 <p className="mt-1 text-muted-foreground">My animals — more than anything in the world. 💛</p>
                 <ul className="mt-6 grid grid-cols-2 gap-6 sm:grid-cols-3">
                   {["Pet name", "Pet name", "Pet name"].map((n, i) => (
-                    <li key={i}><Polaroid caption={n} cursor="so cute 🐾" rotate={[3, -2, 4][i]} tape="bg-sticky-yellow/80" /></li>
+                    <li key={i}><Polaroid caption={n} cursor="so cute 🐾" rotate={[3, -2, 4][i] ?? 0} tape="bg-sticky-yellow/80" /></li>
                   ))}
                 </ul>
               </div>

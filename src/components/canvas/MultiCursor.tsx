@@ -20,7 +20,7 @@ export function MultiCursor() {
     const move = (e: PointerEvent) => {
       if (ref.current) ref.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
       const t = e.target as HTMLElement | null;
-      const custom = t?.closest<HTMLElement>("[data-cursor]")?.dataset.cursor;
+      const custom = t?.closest<HTMLElement>("[data-cursor]")?.dataset["cursor"];
       setLabel(custom ?? (t?.closest("a,button,[role=button]") ? "click" : t?.closest("[data-drag]") ? "drag me" : "you"));
     };
     const click = (e: MouseEvent) => {
