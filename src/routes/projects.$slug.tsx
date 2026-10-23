@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, ArrowUpRight, ImagePlus, Target, Users, Map, Workflow, Layers, Smartphone, Sparkles, Lightbulb } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, ImagePlus, Target, Users, Map, Workflow, Layers, Smartphone, Sparkles, Lightbulb, ClipboardCheck, ScanEye } from "lucide-react";
 import type { ReactNode } from "react";
 import { MultiCursor } from "@/components/canvas/MultiCursor";
 import { Section } from "@/components/canvas/Section";
@@ -57,8 +57,9 @@ const CLUSTER_COLORS = ["bg-sticky-pink", "bg-sticky-green", "bg-sticky-blue", "
 
 function CaseStudy() {
   const { index } = Route.useLoaderData();
-  const p = PROJECTS[index]!;
-  const next = PROJECTS[(index + 1) % PROJECTS.length]!;
+   const p = PROJECTS[index];
+   const next = PROJECTS[(index + 1) % PROJECTS.length];
+   if (!p || !next) return null;
 
   return (
     <>
@@ -96,21 +97,35 @@ function CaseStudy() {
         </Section>
 
         {/* Research */}
-        <Section id="research" title="🧠 Research & affinity diagram" tab="bg-sticky-pink">
+        <Section id="research" title="🧠 User research" tab="bg-sticky-pink">
           <Heading Icon={Lightbulb}>What I learned from users</Heading>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {p.clusters.map((c, ci) => (
-              <div key={c.title} className="rounded-xl border-2 border-dashed border-ink/20 p-4">
-                <h4 className="mb-3 font-bold">{c.title}</h4>
-                <ul className="grid gap-3">
-                  {c.notes.map((n, ni) => (
-                    <li key={ni}><Draggable label={n} rotate={((ci + ni) * 37) % 5 - 2} className={`${CLUSTER_COLORS[ci % 4]} p-3 text-sm`}>{n}</Draggable></li>
-                  ))}
-                </ul>
-              </div>
+          <ul className="grid grid-cols-2 gap-5 lg:grid-cols-4">
+            {Array.from({ length: 8 }, (_, i) => (
+              <li key={i}>
+                <Draggable label={`User insight ${i + 1}`} rotate={i % 2 ? 1.5 : -1.5} className={`${CLUSTER_COLORS[i % CLUSTER_COLORS.length]} min-h-40 p-5`}>
+                  <span className="sr-only">User insight {i + 1}</span>
+                </Draggable>
+              </li>
             ))}
+          </ul>
+        </Section>
+
+        <Section id="heuristics" title="📋 Heuristic evaluation" tab="bg-sticky-orange">
+          <Heading Icon={ClipboardCheck}>Heuristic evaluation</Heading>
+          <div className="grid gap-6 md:grid-cols-2">
+            <Shot label="Evaluation findings & severity" />
+            <Shot label="Annotated screens & recommendations" />
           </div>
-          <div className="mt-8"><Shot label="Or paste your affinity diagram board" /></div>
+        </Section>
+
+        <Section id="competitive-analysis" title="🔎 Visual competitive analysis" tab="bg-sticky-blue">
+          <Heading Icon={ScanEye}>Visual competitive analysis</Heading>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <Shot label="Competitor 01" />
+            <Shot label="Competitor 02" />
+            <Shot label="Competitor 03" />
+          </div>
+          <div className="mt-8"><Shot label="Visual comparison & key takeaways" /></div>
         </Section>
 
         {/* Personas */}
