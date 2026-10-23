@@ -57,8 +57,8 @@ const CLUSTER_COLORS = ["bg-sticky-pink", "bg-sticky-green", "bg-sticky-blue", "
 
 function CaseStudy() {
   const { index } = Route.useLoaderData();
-  const p = PROJECTS[index];
-  const next = PROJECTS[(index + 1) % PROJECTS.length];
+  const p = PROJECTS[index]!;
+  const next = PROJECTS[(index + 1) % PROJECTS.length]!;
 
   return (
     <>
