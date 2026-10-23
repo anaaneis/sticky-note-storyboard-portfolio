@@ -36,7 +36,7 @@ export const Route = createFileRoute("/projects/$slug")({
 });
 
 /** Screenshot slot: shows the image when given, otherwise a dashed "drop here" frame. */
-function Shot({ label, img, ratio = "aspect-video" }: { label: string; img?: string; ratio?: string }) {
+function Shot({ label, img, ratio = "aspect-video" }: { label: string; img?: string | undefined; ratio?: string }) {
   return (
     <figure>
       <div className={`${ratio} grid place-items-center overflow-hidden rounded-lg border-2 border-dashed border-ink/25 bg-card`}>
