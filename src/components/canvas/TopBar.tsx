@@ -10,7 +10,7 @@ const LINKS = [
 ];
 
 /** Figma/FigJam-style file header used as the main navigation. */
-export function TopBar({ name }: { name: string }) {
+export function TopBar({ name, base = "" }: { name: string; base?: string }) {
   return (
     <header className="sticky top-0 z-40 border-b bg-card/95 backdrop-blur">
       <div className="flex h-14 items-center gap-3 px-3 sm:px-5">
@@ -25,7 +25,7 @@ export function TopBar({ name }: { name: string }) {
           <ul className="flex items-center gap-1 rounded-xl bg-muted p-1">
             {LINKS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="block rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-card hover:text-foreground">{l.label}</a>
+                <a href={base + l.href} className="block rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground hover:bg-card hover:text-foreground">{l.label}</a>
               </li>
             ))}
           </ul>
@@ -37,8 +37,8 @@ export function TopBar({ name }: { name: string }) {
             <span className="grid h-8 w-8 place-items-center rounded-full border-2 border-card bg-sticky-green text-xs font-bold text-ink">you</span>
           </div>
           <span className="hidden rounded-md px-2 py-1 text-xs font-medium text-muted-foreground lg:block" aria-hidden="true">100%</span>
-          <a href="#projects" aria-label="Present: jump to projects" className="hidden h-9 w-9 place-items-center rounded-lg hover:bg-muted sm:grid"><Play className="h-4 w-4" aria-hidden="true" /></a>
-          <a href="#contact" className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Share</a>
+          <a href={base + "#projects"} aria-label="Present: jump to projects" className="hidden h-9 w-9 place-items-center rounded-lg hover:bg-muted sm:grid"><Play className="h-4 w-4" aria-hidden="true" /></a>
+          <a href={base + "#contact"} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:opacity-90">Share</a>
         </div>
       </div>
     </header>

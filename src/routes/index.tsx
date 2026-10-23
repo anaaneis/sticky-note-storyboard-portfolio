@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Folder, Hand, StickyNote, Square, Type, Mail, Linkedin, Github, ArrowUpRight, X, BookOpen, Camera, PawPrint, Coffee } from "lucide-react";
 import { MultiCursor } from "@/components/canvas/MultiCursor";
@@ -6,10 +6,7 @@ import { Draggable } from "@/components/canvas/Draggable";
 import { Section } from "@/components/canvas/Section";
 import { Polaroid } from "@/components/canvas/Polaroid";
 import { TopBar } from "@/components/canvas/TopBar";
-import p1 from "@/assets/project-1.jpg";
-import p2 from "@/assets/project-2.jpg";
-import p3 from "@/assets/project-3.jpg";
-import p4 from "@/assets/project-4.jpg";
+import { PROJECTS } from "@/data/projects";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -26,13 +23,6 @@ export const Route = createFileRoute("/")({
 });
 
 const NAME = "Ana Luisa Silva";
-
-const PROJECTS = [
-  { title: "Project One", year: "2026", img: p1, summary: "A dashboard that helps teams track their work at a glance.", stack: ["Figma", "React", "TypeScript"], color: "bg-sticky-yellow" },
-  { title: "Project Two", year: "2025", img: p2, summary: "A friendly wellness app designed mobile-first.", stack: ["Figma", "Tailwind"], color: "bg-sticky-pink" },
-  { title: "Project Three", year: "2025", img: p3, summary: "A full brand identity for a small sustainable business.", stack: ["Figma", "Photography"], color: "bg-sticky-green" },
-  { title: "Project Four", year: "2024", img: p4, summary: "Turning messy data into clear, accessible charts.", stack: ["React", "Node.js", "Git"], color: "bg-sticky-blue" },
-];
 
 const TECH = [
   { name: "Figma", slug: "figma", note: "Design", c: "bg-sticky-violet" },
@@ -136,7 +126,7 @@ function Index() {
                   <p className="mt-1">{proj.summary}</p>
                   <h4 className="mt-4 text-sm font-bold uppercase tracking-wide">What I used</h4>
                   <ul className="mt-2 flex flex-wrap gap-2">{proj.stack.map((t) => <li key={t} className="rounded-full bg-card px-3 py-1 text-xs font-semibold">{t}</li>)}</ul>
-                  <a href="#" className="mt-5 inline-flex items-center gap-1 font-semibold underline underline-offset-4">View case study <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>
+                  <Link to="/projects/$slug" params={{ slug: proj.slug }} className="mt-5 inline-flex items-center gap-1 rounded-full bg-ink px-4 py-2 font-semibold text-card">Open case study <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></Link>
                 </div>
               </article>
             )}
