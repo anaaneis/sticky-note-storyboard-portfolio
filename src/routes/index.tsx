@@ -288,6 +288,25 @@ function Index() {
               </li>
             ))}
           </ol>
+
+          {/* Certifications */}
+          <div className="section-frame relative mt-16 p-5 pt-12">
+            <h3 className="sticky-note absolute -top-5 left-5 rounded-md bg-sticky-violet px-4 py-1.5 font-hand text-2xl shadow-sticky -rotate-2">🎓 Certifications</h3>
+            <p className="mt-1 text-muted-foreground">Courses and certificates I collected along the way.</p>
+            <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[{ n: "Certificate name", org: "Who issued it", when: "2026", c: "bg-sticky-yellow" }, { n: "Certificate name", org: "Who issued it", when: "2025", c: "bg-sticky-blue" }, { n: "Certificate name", org: "Who issued it", when: "2025", c: "bg-sticky-pink" }, { n: "Certificate name", org: "Who issued it", when: "2024", c: "bg-sticky-green" }].map((cert, i) => (
+                <li key={i}>
+                  <Draggable label={cert.n} rotate={((i * 13) % 5) - 2} className={`${cert.c} h-full p-4`}>
+                    <span aria-hidden="true" className="flex aspect-video items-center justify-center rounded-md border-2 border-dashed border-ink/30 bg-card/60">
+                      <span className="px-2 text-center text-[11px] font-semibold text-ink/60">certificate image here</span>
+                    </span>
+                    <p className="mt-3 text-sm font-bold leading-tight">{cert.n}</p>
+                    <p className="text-xs text-ink/70">{cert.org} · {cert.when}</p>
+                  </Draggable>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Section>
 
         {/* CONTACT */}
