@@ -67,9 +67,9 @@ const TOOL_GROUPS: {
 ];
 
 const EXPERIENCE = [
-  { role: "Your role", org: "Company name", when: "2024 — now", text: "What you did, what you learned, an achievement you are proud of." },
-  { role: "Your role", org: "Company name", when: "2022 — 2024", text: "What you did, what you learned, an achievement you are proud of." },
-  { role: "Internship / Studies", org: "School or company", when: "2020 — 2022", text: "What you did, what you learned, an achievement you are proud of." },
+  { role: "Your role", org: "Company name", when: "2024 — now", text: "What you did, what you learned, an achievement you are proud of.", c: "bg-sticky-yellow", skills: ["Communication", "Teamwork", "Problem solving"] },
+  { role: "Your role", org: "Company name", when: "2022 — 2024", text: "What you did, what you learned, an achievement you are proud of.", c: "bg-sticky-blue", skills: ["Time management", "Presentation skills", "Feedback"] },
+  { role: "Internship / Studies", org: "School or company", when: "2020 — 2022", text: "What you did, what you learned, an achievement you are proud of.", c: "bg-sticky-pink", skills: ["Adaptability", "Research", "Collaboration"] },
 ];
 
 const NAV = [
