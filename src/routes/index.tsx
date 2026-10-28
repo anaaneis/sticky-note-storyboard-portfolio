@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Folder, Hand, StickyNote, Square, Type, Mail, Linkedin, Github, ArrowUpRight, X, BookOpen, Camera, PawPrint, Coffee, Code2, PenTool, PencilRuler, Users, FlaskConical, Network, Heart, Triangle, type LucideIcon } from "lucide-react";
 import { MultiCursor } from "@/components/canvas/MultiCursor";
+import { DrawLayer } from "@/components/canvas/DrawLayer";
 import { Draggable } from "@/components/canvas/Draggable";
 import { Section } from "@/components/canvas/Section";
 import { Polaroid } from "@/components/canvas/Polaroid";
@@ -90,6 +91,7 @@ function Index() {
     <>
       <a href="#main" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
       <MultiCursor />
+      <DrawLayer />
       <TopBar name={NAME} />
 
       <main id="main" className="mx-auto flex max-w-6xl flex-col gap-20 px-4 pb-40 pt-14 sm:px-8">
