@@ -1,4 +1,4 @@
-import { useRef, useState, type ReactNode, type KeyboardEvent, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type ReactNode, type KeyboardEvent, type PointerEvent } from "react";
 import { cn } from "@/lib/utils";
 
 /** Sticky that can be dragged with mouse/touch, or moved with arrow keys when focused. */
@@ -6,6 +6,14 @@ export function Draggable({ children, className, label, rotate = 0 }: { children
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
   const start = useRef({ x: 0, y: 0, px: 0, py: 0 });
+  const el = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const sec = el.current?.closest("section");
+    if (!sec) return;
+    const reset = () => setPos({ x: 0, y: 0 });
+    sec.addEventListener("sticky-reset", reset);
+    return () => sec.removeEventListener("sticky-reset", reset);
+  }, []);
 
   const down = (e: PointerEvent<HTMLDivElement>) => {
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
@@ -28,6 +36,7 @@ export function Draggable({ children, className, label, rotate = 0 }: { children
 
   return (
     <div
+      ref={el}
       data-drag
       tabIndex={0}
       role="group"
@@ -37,7 +46,7 @@ export function Draggable({ children, className, label, rotate = 0 }: { children
       onPointerMove={move}
       onPointerUp={() => setDragging(false)}
       onKeyDown={key}
-      className={cn("sticky-note relative touch-none select-none cursor-grab transition-shadow", dragging && "cursor-grabbing shadow-float z-20", className)}
+      className={cn("sticky-note relative touch-none select-none cursor-grab transition-[box-shadow,transform] duration-300", dragging && "duration-0 cursor-grabbing shadow-float z-20", className)}
       style={{ transform: `translate(${pos.x}px, ${pos.y}px) rotate(${dragging ? 0 : rotate}deg)` }}
     >
       {children}

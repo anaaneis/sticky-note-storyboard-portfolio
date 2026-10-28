@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, ArrowUpRight, ImagePlus, Target, Users, Map, Workflow, Layers, Smartphone, Sparkles, Lightbulb, ClipboardCheck, ScanEye } from "lucide-react";
 import type { ReactNode } from "react";
 import { MultiCursor } from "@/components/canvas/MultiCursor";
+import { DrawLayer } from "@/components/canvas/DrawLayer";
 import { Section } from "@/components/canvas/Section";
 import { Draggable } from "@/components/canvas/Draggable";
 import { TopBar } from "@/components/canvas/TopBar";
@@ -65,6 +66,7 @@ function CaseStudy() {
     <>
       <a href="#main" className="sr-only z-50 rounded-md bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Skip to content</a>
       <MultiCursor />
+      <DrawLayer />
       <TopBar name="Ana Luisa Silva" base="/" />
 
       <main id="main" className="mx-auto flex max-w-6xl flex-col gap-20 px-4 pb-32 pt-10 sm:px-8">
