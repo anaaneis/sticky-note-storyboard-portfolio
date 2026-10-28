@@ -265,14 +265,25 @@ function Index() {
 
         {/* EXPERIENCE */}
         <Section id="experience" title="🚀 Experience" tab="bg-sticky-green">
+          <p className="mb-10 text-muted-foreground">Each role is a card on the board — inside, the soft skills I picked up there. Drag the little skill notes around.</p>
           <ol className="relative ml-3 border-l-2 border-dashed border-ink/30">
-            {EXPERIENCE.map((e) => (
+            {EXPERIENCE.map((e, i) => (
               <li key={e.when} className="relative mb-10 ml-8 last:mb-0">
                 <span aria-hidden="true" className="absolute -left-[2.6rem] top-1 h-5 w-5 rounded-full border-4 border-card bg-primary shadow" />
-                <div className="rounded-xl bg-card p-5 shadow-sticky transition-transform hover:-translate-y-0.5">
-                  <p className="font-hand text-xl text-cursor">{e.when}</p>
-                  <h3 className="text-lg font-bold">{e.role} · <span className="font-medium text-muted-foreground">{e.org}</span></h3>
+                <div className="sticky-note relative rounded-xl bg-card p-5 pt-8 shadow-sticky sm:p-6 sm:pt-9">
+                  <h3 className={`absolute -top-5 left-5 sticky-note rounded-md px-3 py-1 font-hand text-xl shadow-sticky ${e.c} ${i % 2 ? "rotate-[1.5deg]" : "-rotate-2"}`}>{e.when}</h3>
+                  <p className="text-lg font-bold">{e.role} · <span className="font-medium text-muted-foreground">{e.org}</span></p>
                   <p className="mt-1 text-muted-foreground">{e.text}</p>
+                  <h4 className="mt-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Soft skills I learned here</h4>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {e.skills.map((s, si) => (
+                      <li key={s}>
+                        <Draggable label={s} rotate={((si * 7) % 5) - 2} className={`sticky-note rounded-lg px-3 py-1.5 text-xs font-semibold ${["bg-sticky-yellow", "bg-sticky-green", "bg-sticky-pink", "bg-sticky-blue", "bg-sticky-violet"][(si + i) % 5]}`}>
+                          {s}
+                        </Draggable>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </li>
             ))}
