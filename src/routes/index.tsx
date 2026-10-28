@@ -67,9 +67,9 @@ const TOOL_GROUPS: {
 ];
 
 const EXPERIENCE = [
-  { role: "Your role", org: "Company name", when: "2024 — now", text: "What you did, what you learned, an achievement you are proud of." },
-  { role: "Your role", org: "Company name", when: "2022 — 2024", text: "What you did, what you learned, an achievement you are proud of." },
-  { role: "Internship / Studies", org: "School or company", when: "2020 — 2022", text: "What you did, what you learned, an achievement you are proud of." },
+  { role: "Your role", org: "Company name", when: "2024 — now", text: "What you did, what you learned, an achievement you are proud of.", c: "bg-sticky-yellow", skills: ["Communication", "Teamwork", "Problem solving"] },
+  { role: "Your role", org: "Company name", when: "2022 — 2024", text: "What you did, what you learned, an achievement you are proud of.", c: "bg-sticky-blue", skills: ["Time management", "Presentation skills", "Feedback"] },
+  { role: "Internship / Studies", org: "School or company", when: "2020 — 2022", text: "What you did, what you learned, an achievement you are proud of.", c: "bg-sticky-pink", skills: ["Adaptability", "Research", "Collaboration"] },
 ];
 
 const NAV = [
@@ -265,18 +265,48 @@ function Index() {
 
         {/* EXPERIENCE */}
         <Section id="experience" title="🚀 Experience" tab="bg-sticky-green">
+          <p className="mb-10 text-muted-foreground">Each role is a card on the board — inside, the soft skills I picked up there. Drag the little skill notes around.</p>
           <ol className="relative ml-3 border-l-2 border-dashed border-ink/30">
-            {EXPERIENCE.map((e) => (
+            {EXPERIENCE.map((e, i) => (
               <li key={e.when} className="relative mb-10 ml-8 last:mb-0">
                 <span aria-hidden="true" className="absolute -left-[2.6rem] top-1 h-5 w-5 rounded-full border-4 border-card bg-primary shadow" />
-                <div className="rounded-xl bg-card p-5 shadow-sticky transition-transform hover:-translate-y-0.5">
-                  <p className="font-hand text-xl text-cursor">{e.when}</p>
-                  <h3 className="text-lg font-bold">{e.role} · <span className="font-medium text-muted-foreground">{e.org}</span></h3>
+                <div className="sticky-note relative rounded-xl bg-card p-5 pt-8 shadow-sticky sm:p-6 sm:pt-9">
+                  <h3 className={`absolute -top-5 left-5 sticky-note rounded-md px-3 py-1 font-hand text-xl shadow-sticky ${e.c} ${i % 2 ? "rotate-[1.5deg]" : "-rotate-2"}`}>{e.when}</h3>
+                  <p className="text-lg font-bold">{e.role} · <span className="font-medium text-muted-foreground">{e.org}</span></p>
                   <p className="mt-1 text-muted-foreground">{e.text}</p>
+                  <h4 className="mt-4 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">Soft skills I learned here</h4>
+                  <ul className="mt-2 flex flex-wrap gap-2">
+                    {e.skills.map((s, si) => (
+                      <li key={s}>
+                        <Draggable label={s} rotate={((si * 7) % 5) - 2} className={`sticky-note rounded-lg px-3 py-1.5 text-xs font-semibold ${["bg-sticky-yellow", "bg-sticky-green", "bg-sticky-pink", "bg-sticky-blue", "bg-sticky-violet"][(si + i) % 5]}`}>
+                          {s}
+                        </Draggable>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </li>
             ))}
           </ol>
+
+          {/* Certifications */}
+          <div className="section-frame relative mt-16 p-5 pt-12">
+            <h3 className="sticky-note absolute -top-5 left-5 rounded-md bg-sticky-violet px-4 py-1.5 font-hand text-2xl shadow-sticky -rotate-2">🎓 Certifications</h3>
+            <p className="mt-1 text-muted-foreground">Courses and certificates I collected along the way.</p>
+            <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {[{ n: "Certificate name", org: "Who issued it", when: "2026", c: "bg-sticky-yellow" }, { n: "Certificate name", org: "Who issued it", when: "2025", c: "bg-sticky-blue" }, { n: "Certificate name", org: "Who issued it", when: "2025", c: "bg-sticky-pink" }, { n: "Certificate name", org: "Who issued it", when: "2024", c: "bg-sticky-green" }].map((cert, i) => (
+                <li key={i}>
+                  <Draggable label={cert.n} rotate={((i * 13) % 5) - 2} className={`${cert.c} h-full p-4`}>
+                    <span aria-hidden="true" className="flex aspect-video items-center justify-center rounded-md border-2 border-dashed border-ink/30 bg-card/60">
+                      <span className="px-2 text-center text-[11px] font-semibold text-ink/60">certificate image here</span>
+                    </span>
+                    <p className="mt-3 text-sm font-bold leading-tight">{cert.n}</p>
+                    <p className="text-xs text-ink/70">{cert.org} · {cert.when}</p>
+                  </Draggable>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Section>
 
         {/* CONTACT */}
