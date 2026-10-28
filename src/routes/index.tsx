@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Folder, Hand, StickyNote, Square, Type, Mail, Linkedin, Github, ArrowUpRight, X, BookOpen, Camera, PawPrint, Coffee } from "lucide-react";
+import { Folder, Hand, StickyNote, Square, Type, Mail, Linkedin, Github, ArrowUpRight, X, BookOpen, Camera, PawPrint, Coffee, Code2, PenTool, PencilRuler, Users, FlaskConical, Network, Heart, Triangle, type LucideIcon } from "lucide-react";
 import { MultiCursor } from "@/components/canvas/MultiCursor";
 import { Draggable } from "@/components/canvas/Draggable";
 import { Section } from "@/components/canvas/Section";
@@ -24,16 +24,46 @@ export const Route = createFileRoute("/")({
 
 const NAME = "Ana Luisa Silva";
 
-const TECH = [
-  { name: "Figma", slug: "figma", note: "Design", c: "bg-sticky-violet" },
-  { name: "React", slug: "react", note: "Front-end", c: "bg-sticky-blue" },
-  { name: "TypeScript", slug: "typescript", note: "Language", c: "bg-sticky-blue" },
-  { name: "HTML5", slug: "html5", note: "Markup", c: "bg-sticky-orange" },
-  { name: "CSS", slug: "css", note: "Styling", c: "bg-sticky-orange" },
-  { name: "Tailwind", slug: "tailwindcss", note: "Styling", c: "bg-sticky-green" },
-  { name: "Node.js", slug: "nodedotjs", note: "Back-end", c: "bg-sticky-green" },
-  { name: "Git", slug: "git", note: "Versioning", c: "bg-sticky-pink" },
-  { name: "Lightroom", slug: "adobelightroom", note: "Photography", c: "bg-sticky-yellow" },
+const TOOL_GROUPS: {
+  group: string;
+  tab: string;
+  items: { name: string; note: string; slug?: string; Icon?: LucideIcon; c: string }[];
+}[] = [
+  {
+    group: "CODE",
+    tab: "bg-sticky-blue",
+    items: [
+      { name: "React", slug: "react", note: "Front-end", c: "bg-sticky-blue" },
+      { name: "HTML", slug: "html5", note: "Markup", c: "bg-sticky-orange" },
+      { name: "CSS", slug: "css", note: "Styling", c: "bg-sticky-orange" },
+      { name: "JavaScript", slug: "javascript", note: "Language", c: "bg-sticky-yellow" },
+      { name: "Tailwind", slug: "tailwindcss", note: "Styling", c: "bg-sticky-green" },
+      { name: "Git", slug: "git", note: "Versioning", c: "bg-sticky-pink" },
+      { name: "VS Code", Icon: Code2, note: "Editor", c: "bg-sticky-violet" },
+    ],
+  },
+  {
+    group: "DESIGN",
+    tab: "bg-sticky-pink",
+    items: [
+      { name: "Figma", slug: "figma", note: "Design tool", c: "bg-sticky-pink" },
+      { name: "Framer", slug: "framer", note: "Design & build", c: "bg-sticky-violet" },
+      { name: "Prototyping", Icon: PenTool, note: "Click & flow", c: "bg-sticky-yellow" },
+      { name: "Wireframing", Icon: PencilRuler, note: "Low-fi first", c: "bg-sticky-blue" },
+      { name: "User research & personas", Icon: Users, note: "Understand people", c: "bg-sticky-green" },
+      { name: "Usability testing", Icon: FlaskConical, note: "Test with users", c: "bg-sticky-orange" },
+      { name: "Information architecture", Icon: Network, note: "Structure", c: "bg-sticky-violet" },
+    ],
+  },
+  {
+    group: "AI tools",
+    tab: "bg-sticky-green",
+    items: [
+      { name: "Claude", slug: "claude", note: "AI assistant", c: "bg-sticky-yellow" },
+      { name: "Lovable", Icon: Heart, note: "App building", c: "bg-sticky-pink" },
+      { name: "v0 by Vercel", Icon: Triangle, note: "AI UI generation", c: "bg-sticky-blue" },
+    ],
+  },
 ];
 
 const EXPERIENCE = [
@@ -204,22 +234,33 @@ function Index() {
           </div>
         </Section>
 
-        {/* TECH */}
+        {/* TECH — affinity diagram */}
         <Section id="tech" title="🧰 Tools & technologies" tab="bg-sticky-blue">
-          <p className="mb-8 text-muted-foreground">The stickers on my laptop. Drag them around!</p>
-          <ul className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
-            {TECH.map((t, i) => (
-              <li key={t.name}>
-                <Draggable label={t.name} rotate={((i * 37) % 7) - 3} className={`${t.c} flex flex-col items-center gap-3 p-5 text-center`}>
-                  <span className="grid h-16 w-16 place-items-center rounded-2xl bg-card shadow-sticky">
-                    <img src={`https://cdn.simpleicons.org/${t.slug}`} alt="" width={36} height={36} loading="lazy" draggable={false} className="h-9 w-9" />
-                  </span>
-                  <span className="font-bold">{t.name}</span>
-                  <span className="-mt-2 text-xs text-ink/70">{t.note}</span>
-                </Draggable>
-              </li>
+          <p className="mb-10 text-muted-foreground">An affinity diagram of my tools — big groups on the board, and every note can be dragged around.</p>
+          <div className="grid gap-12 lg:grid-cols-3">
+            {TOOL_GROUPS.map((g, gi) => (
+              <div key={g.group} className="section-frame relative p-4 pt-10 sm:p-5">
+                <h3 className={`sticky-note absolute -top-5 left-4 rounded-md px-4 py-1.5 font-hand text-2xl ${g.tab} ${gi % 2 ? "rotate-[1.5deg]" : "-rotate-2"}`}>{g.group}</h3>
+                <ul className="grid gap-4 sm:grid-cols-2">
+                  {g.items.map((t, i) => (
+                    <li key={t.name}>
+                      <Draggable label={t.name} rotate={((i * 29) % 5) - 2} className={`${t.c} flex h-full flex-col items-center gap-2 p-4 text-center`}>
+                        <span className="grid h-14 w-14 place-items-center rounded-2xl bg-card shadow-sticky">
+                          {t.slug ? (
+                            <img src={`https://cdn.simpleicons.org/${t.slug}`} alt="" width={32} height={32} loading="lazy" draggable={false} className="h-8 w-8" />
+                          ) : (
+                            t.Icon && <t.Icon className="h-7 w-7" aria-hidden="true" />
+                          )}
+                        </span>
+                        <span className="text-sm font-bold leading-tight">{t.name}</span>
+                        <span className="-mt-1.5 text-[11px] text-ink/70">{t.note}</span>
+                      </Draggable>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
+          </div>
         </Section>
 
         {/* EXPERIENCE */}
