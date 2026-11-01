@@ -16,9 +16,13 @@ export function Section({ id, title, tab, children }: { id: string; title: strin
         <button
           type="button"
           onClick={() => ref.current?.dispatchEvent(new CustomEvent("sticky-reset"))}
-          className="absolute -top-4 right-6 inline-flex items-center gap-1.5 rounded-md bg-card px-3 py-1 text-xs font-semibold shadow-sticky hover:-translate-y-0.5"
+          className="group absolute -top-5 right-6 inline-flex rotate-2 items-center gap-2 rounded-full border-2 border-ink bg-sticky-yellow py-1 pl-1 pr-3 text-ink shadow-[3px_3px_0_0_var(--ink)] transition-transform hover:-translate-y-0.5 hover:rotate-0 active:translate-y-0.5 active:shadow-none"
         >
-          <RotateCcw className="h-3.5 w-3.5" aria-hidden="true" /> Reset notes<span className="sr-only"> in {title}</span>
+          <span className="grid h-6 w-6 place-items-center rounded-full bg-ink text-card">
+            <RotateCcw className="h-3.5 w-3.5 transition-transform duration-500 group-hover:-rotate-[360deg]" aria-hidden="true" />
+          </span>
+          <span className="font-hand text-xl leading-none">tidy up!</span>
+          <span className="sr-only"> Reset notes in {title}</span>
         </button>
       )}
       {children}
