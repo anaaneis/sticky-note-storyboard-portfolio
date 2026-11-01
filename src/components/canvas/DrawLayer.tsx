@@ -63,7 +63,7 @@ export function DrawLayer() {
 
   const tool = (m: Mode, label: string, Icon: typeof Pencil) => (
     <button type="button" aria-label={label} aria-pressed={mode === m} title={label} onClick={() => setMode(m)}
-      className={cn("grid h-10 w-10 place-items-center rounded-lg hover:bg-muted", mode === m && "bg-primary text-primary-foreground hover:bg-primary")}>
+      className={cn("grid h-10 w-10 place-items-center rounded-xl transition-transform hover:-translate-y-0.5 hover:bg-card/15", mode === m && "-translate-y-1 bg-primary text-primary-foreground hover:bg-primary")}>
       <Icon className="h-5 w-5" aria-hidden="true" />
     </button>
   );
@@ -78,20 +78,20 @@ export function DrawLayer() {
         onPointerUp={() => (last.current = null)}
         className={cn("absolute left-0 top-0 z-30 touch-none", mode === "off" ? "pointer-events-none" : mode === "pen" ? "cursor-crosshair" : "cursor-cell")}
       />
-      <div role="toolbar" aria-label="Drawing tools" className="fixed bottom-24 left-4 z-50 flex flex-col items-center gap-1 rounded-xl border bg-card p-1.5 shadow-float">
+      <div role="toolbar" aria-label="Drawing tools" className="fixed bottom-20 left-1/2 z-50 flex -translate-x-1/2 items-center gap-1 rounded-2xl bg-ink p-1.5 text-card shadow-float">
         {tool("off", "Select (stop drawing)", MousePointer2)}
         {tool("pen", "Pen: draw on the canvas", Pencil)}
         {tool("eraser", "Eraser", Eraser)}
         {mode === "pen" && (
-          <div className="flex flex-col gap-1 py-1" role="radiogroup" aria-label="Pen colour">
+          <div className="absolute bottom-full left-1/2 mb-2 flex -translate-x-1/2 gap-1.5 rounded-full bg-card p-1.5 shadow-float" role="radiogroup" aria-label="Pen colour">
             {COLORS.map((c) => (
               <button key={c} type="button" role="radio" aria-checked={color === c} aria-label={`Colour ${c}`} onClick={() => setColor(c)}
-                className={cn("h-6 w-6 rounded-full border-2", color === c ? "border-ink" : "border-card")} style={{ background: c }} />
+                className={cn("h-6 w-6 rounded-full border-2", color === c ? "scale-110 border-ink" : "border-card")} style={{ background: c }} />
             ))}
           </div>
         )}
-        <span className="my-0.5 h-px w-6 bg-border" aria-hidden="true" />
-        <button type="button" aria-label="Clear all drawings" title="Clear all drawings" onClick={clear} className="grid h-10 w-10 place-items-center rounded-lg hover:bg-muted">
+        <span className="mx-1 h-6 w-px bg-card/30" aria-hidden="true" />
+        <button type="button" aria-label="Clear all drawings" title="Clear all drawings" onClick={clear} className="grid h-10 w-10 place-items-center rounded-xl hover:bg-destructive">
           <Trash2 className="h-5 w-5" aria-hidden="true" />
         </button>
       </div>
