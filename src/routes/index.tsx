@@ -318,21 +318,37 @@ function Index() {
               <p className="text-4xl font-extrabold tracking-tight">Let's make something together.</p>
               <p className="mt-3 text-muted-foreground">Open to new projects, collaborations and a good chat.</p>
             </div>
-            <ul className="grid gap-3">
-              {[
-                { href: "mailto:hello@example.com", label: "hello@example.com", Icon: Mail, c: "bg-sticky-yellow" },
-                { href: "https://linkedin.com", label: "LinkedIn", Icon: Linkedin, c: "bg-sticky-blue" },
-                { href: "https://github.com", label: "GitHub", Icon: Github, c: "bg-sticky-green" },
-              ].map(({ href, label, Icon, c }) => (
-                <li key={label}>
-                  <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className={`sticky-note flex items-center gap-3 p-4 font-semibold transition-transform hover:-translate-y-0.5 hover:rotate-1 ${c}`}>
-                    <Icon className="h-5 w-5" aria-hidden="true" /> {label}
-                    {href.startsWith("http") && <span className="sr-only">(opens in new tab)</span>}
-                    <ArrowUpRight className="ml-auto h-4 w-4" aria-hidden="true" />
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <div className="grid gap-5">
+              <a href="mailto:hello@example.com" className="sticky-note group flex items-center gap-4 bg-sticky-yellow p-5 transition-transform hover:-translate-y-0.5 hover:-rotate-1">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-card shadow-sticky"><Mail className="h-6 w-6" aria-hidden="true" /></span>
+                <span className="min-w-0">
+                  <span className="block font-hand text-2xl leading-none">Write me</span>
+                  <span className="block truncate font-semibold">hello@example.com</span>
+                </span>
+                <ArrowUpRight className="ml-auto h-5 w-5 shrink-0 transition-transform group-hover:rotate-45" aria-hidden="true" />
+              </a>
+              <div>
+                <p className="font-hand text-2xl text-muted-foreground">or find me on…</p>
+                <ul className="mt-2 flex flex-wrap gap-4">
+                  {[
+                    { href: "https://linkedin.com", label: "LinkedIn", slug: "", c: "bg-sticky-blue", r: "-rotate-3" },
+                    { href: "https://medium.com", label: "Medium", slug: "medium", c: "bg-sticky-green", r: "rotate-2" },
+                    { href: "https://github.com", label: "GitHub", slug: "github", c: "bg-sticky-pink", r: "-rotate-1" },
+                  ].map(({ href, label, slug, c, r }) => (
+                    <li key={label}>
+                      <a href={href} target="_blank" rel="noreferrer" aria-label={`${label} (opens in new tab)`} title={label}
+                        className={`sticky-note grid h-16 w-16 place-items-center ${c} ${r} transition-transform hover:-translate-y-1 hover:rotate-0`}>
+                        {slug ? (
+                          <img src={`https://cdn.simpleicons.org/${slug}`} alt="" width={28} height={28} className="h-7 w-7" />
+                        ) : (
+                          <Linkedin className="h-7 w-7" aria-hidden="true" />
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </Section>
       </main>
