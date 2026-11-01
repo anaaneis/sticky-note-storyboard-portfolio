@@ -63,7 +63,7 @@ export function DrawLayer() {
 
   const tool = (m: Mode, label: string, Icon: typeof Pencil) => (
     <button type="button" aria-label={label} aria-pressed={mode === m} title={label} onClick={() => setMode(m)}
-      className={cn("grid h-10 w-10 place-items-center rounded-xl transition-transform hover:-translate-y-0.5 hover:bg-card/15", mode === m && "-translate-y-1 bg-primary text-primary-foreground hover:bg-primary")}>
+      className={cn("grid h-10 w-10 place-items-center rounded-xl transition-colors hover:bg-card/15", mode === m && "bg-primary text-primary-foreground hover:bg-primary")}>
       <Icon className="h-5 w-5" aria-hidden="true" />
     </button>
   );
